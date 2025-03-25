@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { IWeatherData } from '../../../shared/models/weather.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  getWeatherData(){
+  getWeatherData(): Observable<IWeatherData> {
+    return of({} as IWeatherData);
 
   }
 }
