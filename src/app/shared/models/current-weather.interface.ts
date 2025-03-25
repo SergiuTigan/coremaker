@@ -1,4 +1,4 @@
-export interface CurrentWeather {
+export interface ICurrentWeather {
   time: string;
   interval: number;
   temperature: number;
@@ -6,4 +6,5 @@ export interface CurrentWeather {
   winddirection: number;
   is_day: number;
   weathercode: number;
+  relative_humidity_2m?: number;
 }

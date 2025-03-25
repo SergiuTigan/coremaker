@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { ILocation } from '../../../shared/models/location.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
   #baseUrl = 'https://nominatim.openstreetmap.org/search';
+  location: BehaviorSubject<ILocation> = new BehaviorSubject({} as ILocation);
+  currentLocation$: Observable<ILocation> = this.location.asObservable();
 
-  constructor(private baseService: BaseService) { }
+  constructor(private baseService: BaseService) {
+  }
 
-  getCurrentLocationDetails(query: string) {
-    const queryParams = new URLSearchParams();
-    queryParams.set('q', query);
-    queryParams.set('format', 'json');
-    queryParams.set('limit', '1');
-    queryParams.set('addressdetails', '1');
-    this.baseService.get(`${this.#baseUrl}/${queryParams}`).subscribe((data) => {
-      console.log(data);
-    });
+  getCurrentLocationDetails(query: string): Observable<ILocation[]> {
+    const queryParams = {
+      q: query,
+      format: 'json',
+      limit: 1,
+      addressdetails: 1
+    };
+   return this.baseService.get<ILocation[]>(this.#baseUrl, queryParams);
+  }
+
+  setCurrentLocation(location: ILocation): void {
+    this.location.next(location);
   }
 }

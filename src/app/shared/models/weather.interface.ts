@@ -1,5 +1,5 @@
-import { CurrentWeatherUnits } from './current-weather-units.interface';
-import { CurrentWeather } from './current-weather.interface';
+import { ICurrentWeatherUnits } from './current-weather-units.interface';
+import { ICurrentWeather } from './current-weather.interface';
 
 export interface IWeatherData {
   latitude: number;
@@ -9,7 +9,9 @@ export interface IWeatherData {
   timezone: string;
   timezone_abbreviation: string;
   elevation: number;
-  current_weather_units: CurrentWeatherUnits;
-  current_weather: CurrentWeather;
+  current_weather_units: ICurrentWeatherUnits;
+  current_units?: Partial<ICurrentWeatherUnits>;
+  current?: Partial<ICurrentWeather>;
+  current_weather: ICurrentWeather;
 }
 
